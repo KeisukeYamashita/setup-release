@@ -52,6 +52,8 @@ jobs:
 | `tag` | GitHub tag of the release | `latest` |
 | `token` | `GITHUB_TOKEN` or a `repo` scoped [PAT](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token). | `GITHUB_TOKEN` |
 
+You cannot use this action if the asset name is not included in the asset name because the search is based on the three inputs(`arch`, `archive` and `platform`) in the asset.name field.
+
 ### Action outputs
 
 | Name | Description |
