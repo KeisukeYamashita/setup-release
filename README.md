@@ -14,7 +14,7 @@ You don't need to download assets and extract, add system pathes, this action wi
           repository: open-policy-agent/conftest
 ```
 
-### Post a comment and close the previous same comment
+### Dowload and provision tagged and latest release
 
 This is just an example to show one way in which this action can be used.
 
@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ./
+      - uses: KeisukeYamashita/download-provision-release@v1
         with:
           repository: spinnaker/kleat
           tag: v0.3.0
@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ./
+      - uses: KeisukeYamashita/download-provision-release@v1
         with:
           repository: spinnaker/kleat
       # Use the "kleat" command in the later steps
@@ -51,6 +51,8 @@ jobs:
 | `platform` | Assets target platform. `linux`, `darwin` is supported. | `linux` |
 | `tag` | GitHub tag of the release | `latest` |
 | `token` | `GITHUB_TOKEN` or a `repo` scoped [PAT](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token). | `GITHUB_TOKEN` |
+
+*Note: You cannot use this action if the asset name is not included in the asset name because the search is based on the three inputs(`arch`, `archive` and `platform`) in the asset.name field.*
 
 ### Action outputs
 
