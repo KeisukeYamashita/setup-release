@@ -1,11 +1,31 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Download Provision Release'
+description: 'GitHub Action that downloads a release and provision for later job usage'
+author: 'KeisukeYamashita'
 inputs:
-  milliseconds: # change this
-    required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+  arch:
+    required: false
+    description: 'The asset arch target'
+    default: 'amd64'
+  archive:
+    required: false
+    description: 'The extension. "tar.gz", "darwin", "zip" is supported'
+    default: 'tar.gz'
+  repository:
+    required: false
+    description: 'The GitHub repository to get the release'
+    default: ${{ github.repository }}
+  platform:
+    required: false
+    description: 'The asset target platform'
+    default: 'linux'
+  tag:
+    required: false
+    description: 'The release tag'
+    default: 'latest'
+  token:
+    required: false
+    description: 'Credential to access to the repo to post the comment'
+    default: ${{ github.token }}
 runs:
   using: 'node12'
   main: 'dist/index.js'

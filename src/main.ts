@@ -1,16 +1,26 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import { Agent, Inputs } from './agent'
+import {Downloader, Config as DownloaderConfig, archiveType} from './downloader'
+import {Provisioner, Config as ProvisionerConfig} from './provisioner'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
+    const [owner, repo] = core.getInput('repository').split("/")
+    const inputs: Inputs = {
+      arch: core.getInput('arch'),
+      archive: core.getInput('archive') as archiveType,
+      name: core.getInput('name'),
+      owner,
+      platform: core.getInput('platform'),
+      repo,
+      tag: core.getInput('tag'),
+      token: core.getInput('token'),
+    }
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
-
-    core.setOutput('time', new Date().toTimeString())
+    const downloader = new Downloader(inputs as DownloaderConfig)
+    const provisioner = new Provisioner(inputs as ProvisionerConfig)
+    const agent = new Agent(downloader, provisioner)
+    
   } catch (error) {
     core.setFailed(error.message)
   }

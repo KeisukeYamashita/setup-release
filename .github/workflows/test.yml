@@ -16,9 +16,11 @@ jobs:
       - run: |
           npm run all
   test: # make sure the action works on a clean machine without building
+    name: Get latest linux amd64
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: ./
         with:
-          milliseconds: 1000
+          repository: spinnaker/kleat
+      - run: kleat version
