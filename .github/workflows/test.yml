@@ -15,10 +15,22 @@ jobs:
           npm install
       - run: |
           npm run all
-  test: # make sure the action works on a clean machine without building
+  test-latest-linux-amd64: # make sure the action works on a clean machine without building
+    name: Get latest linux amd64
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: ./
         with:
-          milliseconds: 1000
+          repository: spinnaker/kleat
+      - run: kleat version
+  test-tagged-linux-amd64: # make sure the action works on a clean machine without building
+    name: Get v0.3.0 linux amd64
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          repository: spinnaker/kleat
+          tag: v0.3.0
+      - run: kleat version
