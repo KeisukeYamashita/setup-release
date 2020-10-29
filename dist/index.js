@@ -1430,7 +1430,7 @@ const provisioner_1 = __webpack_require__(972);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const [owner, repo] = core.getInput('repository').split("/");
+            const [owner, repo] = core.getInput('repository').split('/');
             const inputs = {
                 arch: core.getInput('arch'),
                 archive: core.getInput('archive'),
@@ -1439,11 +1439,12 @@ function run() {
                 platform: core.getInput('platform'),
                 repo,
                 tag: core.getInput('tag'),
-                token: core.getInput('token'),
+                token: core.getInput('token')
             };
             const downloader = new downloader_1.Downloader(inputs);
             const provisioner = new provisioner_1.Provisioner(inputs);
             const agent = new agent_1.Agent(downloader, provisioner);
+            yield agent.run();
         }
         catch (error) {
             core.setFailed(error.message);
@@ -6025,21 +6026,30 @@ class Downloader {
     }
     isTargetAsset(asset) {
         const { name } = asset;
-        return name.includes(this.cfg.platform) && name.includes(this.cfg.arch) && name.includes(this.cfg.archive);
+        return (name.includes(this.cfg.platform) &&
+            name.includes(this.cfg.arch) &&
+            name.includes(this.cfg.archive));
     }
     download() {
         return __awaiter(this, void 0, void 0, function* () {
             const client = github.getOctokit(this.cfg.token);
-            var release;
+            let release;
             if (this.latest) {
-                const resp = yield client.repos.getLatestRelease({ owner: this.cfg.owner, repo: this.cfg.repo });
+                const resp = yield client.repos.getLatestRelease({
+                    owner: this.cfg.owner,
+                    repo: this.cfg.repo
+                });
                 release = resp.data;
             }
             else {
-                const resp = yield client.repos.getReleaseByTag({ owner: this.cfg.owner, repo: this.cfg.repo, tag: this.cfg.tag });
+                const resp = yield client.repos.getReleaseByTag({
+                    owner: this.cfg.owner,
+                    repo: this.cfg.repo,
+                    tag: this.cfg.tag
+                });
                 release = resp.data;
             }
-            const asset = release.assets.find(asset => this.isTargetAsset);
+            const asset = release.assets.find(a => this.isTargetAsset(a));
             if (!asset) {
                 core.debug(`Cound not find asset ${util_1.inspect(this.cfg)}`);
                 core.debug(`Asset count:${release.assets}, release:${util_1.inspect(release)}`);
@@ -6065,7 +6075,7 @@ class Downloader {
 }
 exports.Downloader = Downloader;
 exports.default = {
-    Downloader,
+    Downloader
 };
 
 
@@ -9867,7 +9877,7 @@ class Provisioner {
 }
 exports.Provisioner = Provisioner;
 exports.default = {
-    Provisioner,
+    Provisioner
 };
 
 

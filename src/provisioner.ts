@@ -1,15 +1,17 @@
 import * as core from '@actions/core'
 
-export interface Config {}
+export interface Config {
+  name: string
+}
 
 export class Provisioner {
-    constructor(private cfg: Config) {}
+  constructor(private cfg: Config) {}
 
-    provision(folder: string) {
-        core.addPath(folder)
-    }
+  provision(folder: string): void {
+    core.addPath(folder)
+  }
 }
 
 export default {
-    Provisioner,
+  Provisioner
 }
