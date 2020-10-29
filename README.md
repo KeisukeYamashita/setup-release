@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ./
+      - uses: KeisukeYamashita/download-provision-release@v1
         with:
           repository: spinnaker/kleat
           tag: v0.3.0
@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ./
+      - uses: KeisukeYamashita/download-provision-release@v1
         with:
           repository: spinnaker/kleat
       # Use the "kleat" command in the later steps
