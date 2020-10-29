@@ -1,103 +1,70 @@
-<p align="center">
-  <a href="https://github.com/actions/typescript-action/actions"><img alt="typescript-action status" src="https://github.com/actions/typescript-action/workflows/build-test/badge.svg"></a>
-</p>
+# Download Provision Release
+[![CI](https://github.com/KeisukeYamashita/download-provision-release/workflows/build-test/badge.svg)](https://github.com/KeisukeYamashita/download-provision-release/actions?query=workflow%3Abuild-test)
+[![GitHub Marketplace](https://img.shields.io/badge/Marketplace-Downoald%20Provision%20Release-blue.svg?colorA=24292e&colorB=0366d6&style=flat&longCache=true&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAM6wAADOsB5dZE0gAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAERSURBVCiRhZG/SsMxFEZPfsVJ61jbxaF0cRQRcRJ9hlYn30IHN/+9iquDCOIsblIrOjqKgy5aKoJQj4O3EEtbPwhJbr6Te28CmdSKeqzeqr0YbfVIrTBKakvtOl5dtTkK+v4HfA9PEyBFCY9AGVgCBLaBp1jPAyfAJ/AAdIEG0dNAiyP7+K1qIfMdonZic6+WJoBJvQlvuwDqcXadUuqPA1NKAlexbRTAIMvMOCjTbMwl1LtI/6KWJ5Q6rT6Ht1MA58AX8Apcqqt5r2qhrgAXQC3CZ6i1+KMd9TRu3MvA3aH/fFPnBodb6oe6HM8+lYHrGdRXW8M9bMZtPXUji69lmf5Cmamq7quNLFZXD9Rq7v0Bpc1o/tp0fisAAAAASUVORK5CYII=)](https://github.com/marketplace/actions/download-provision-release)
 
-# Create a JavaScript Action using TypeScript
+A GitHub Action that downloads a release and provision for later job usage.
+You don't need to download assets and extract, add system pathes, this action will do it for you with very easy configurations.
 
-Use this template to bootstrap the creation of a TypeScript action.:rocket:
+## Usage
 
-This template includes compilation support, tests, a validation workflow, publishing, and versioning guidance.  
-
-If you are new, there's also a simpler introduction.  See the [Hello World JavaScript Action](https://github.com/actions/hello-world-javascript-action)
-
-## Create an action from this template
-
-Click the `Use this Template` and provide the new repo details for your action
-
-## Code in Main
-
-Install the dependencies  
-```bash
-$ npm install
+```yml
+      - name: Create Comment
+        uses: KeisukeYamashita/download-provision-release@v1
+        with:
+          number: 1
+          comment: Comment for Issue or GitHub Pull Request
 ```
 
-Build the typescript and package it for distribution
-```bash
-$ npm run build && npm run package
+### Post a comment and close the previous same comment
+
+This is just an example to show one way in which this action can be used.
+
+```yml
+on: pull_request
+jobs:
+  provision-tagged-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          repository: spinnaker/kleat
+          tag: v0.3.0
+      # Use the "kleat" command in the later steps
+  provision-latest-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          repository: spinnaker/kleat
+      # Use the "kleat" command in the later steps
 ```
 
-Run the tests :heavy_check_mark:  
-```bash
-$ npm test
+### Action inputs
 
- PASS  ./index.test.js
-  ✓ throws invalid number (3ms)
-  ✓ wait 500 ms (504ms)
-  ✓ test runs (95ms)
+| Name | Description | Default |
+| --- | --- | --- |
+| `arch` | The asset arch target. | `amd64` |  
+| `archive` | Archive type. Currently, `tar.gz`, `darwin` and `zip` is supported. | `tar.gz` |
+| `repository` | The GitHub repository where it is released | `true` |
+| `number` | The number of the issue to post. | `github.event.issue.number` |
+| `platform` | Assets target platform. `linux`, `darwin` is supported. | `linux` |
+| `tag` | GitHub tag of the release | `latest` |
+| `token` | `GITHUB_TOKEN` or a `repo` scoped [PAT](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token). | `GITHUB_TOKEN` |
 
-...
-```
+### Action outputs
 
-## Change action.yml
+| Name | Description |
+| --- | --- |
+| `asset-id` | ID of the downloaded, provisioned asset |
+| `asset-name` | Name of the downloaded, provisioned asset | 
 
-The action.yml contains defines the inputs and output for your action.
+### Accessing issues in other repositories
 
-Update the action.yml with your name, description, inputs and outputs for your action.
+You can close issues in another repository by using a [PAT](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) instead of `GITHUB_TOKEN`.
+The user associated with the PAT must have write access to the repository.
 
-See the [documentation](https://help.github.com/en/articles/metadata-syntax-for-github-actions)
+## License
 
-## Change the Code
-
-Most toolkit and CI/CD operations involve async operations so the action is run in an async function.
-
-```javascript
-import * as core from '@actions/core';
-...
-
-async function run() {
-  try { 
-      ...
-  } 
-  catch (error) {
-    core.setFailed(error.message);
-  }
-}
-
-run()
-```
-
-See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/README.md#packages) for the various packages.
-
-## Publish to a distribution branch
-
-Actions are run from GitHub repos so we will checkin the packed dist folder. 
-
-Then run [ncc](https://github.com/zeit/ncc) and push the results:
-```bash
-$ npm run package
-$ git add dist
-$ git commit -a -m "prod dependencies"
-$ git push origin releases/v1
-```
-
-Note: We recommend using the `--license` option for ncc, which will create a license file for all of the production node modules used in your project.
-
-Your action is now published! :rocket: 
-
-See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-
-## Validate
-
-You can now validate the action by referencing `./` in a workflow in your repo (see [test.yml](.github/workflows/test.yml))
-
-```yaml
-uses: ./
-with:
-  milliseconds: 1000
-```
-
-See the [actions tab](https://github.com/actions/typescript-action/actions) for runs of this action! :rocket:
-
-## Usage:
-
-After testing you can [create a v1 tag](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md) to reference the stable and latest V1 action
+[MIT](LICENSE)

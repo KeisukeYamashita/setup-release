@@ -61,6 +61,9 @@ export class Downloader {
       throw new Error('Cound not find asset')
     }
 
+    core.setOutput('asset-id', asset.id)
+    core.setOutput('asset-name', asset.name)
+
     const assetPath = await tc.downloadTool(
       asset.browser_download_url,
       '/tmp/asset',
