@@ -6056,7 +6056,7 @@ class Downloader {
                 core.setOutput('matched', false);
                 throw new Error('Cound not find asset');
             }
-            const assetPath = yield tc.downloadTool(asset.browser_download_url, '.', this.cfg.token);
+            const assetPath = yield tc.downloadTool(asset.browser_download_url, '/tmp/asset', this.cfg.token);
             let assetExtractedFolder;
             switch (this.cfg.archive) {
                 case 'tar.gz':

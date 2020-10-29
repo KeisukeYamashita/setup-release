@@ -63,9 +63,10 @@ export class Downloader {
 
     const assetPath = await tc.downloadTool(
       asset.browser_download_url,
-      '.',
+      '/tmp/asset',
       this.cfg.token
     )
+
     let assetExtractedFolder: string
     switch (this.cfg.archive) {
       case 'tar.gz':
