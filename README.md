@@ -8,11 +8,10 @@ You don't need to download assets and extract, add system pathes, this action wi
 ## Usage
 
 ```yml
-      - name: Create Comment
+      - name: Get conftest CLI
         uses: KeisukeYamashita/download-provision-release@v1
         with:
-          number: 1
-          comment: Comment for Issue or GitHub Pull Request
+          repository: open-policy-agent/conftest
 ```
 
 ### Post a comment and close the previous same comment
