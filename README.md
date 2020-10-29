@@ -14,7 +14,7 @@ You don't need to download assets and extract, add system pathes, this action wi
           repository: open-policy-agent/conftest
 ```
 
-### Post a comment and close the previous same comment
+### Dowload and provision tagged and latest release
 
 This is just an example to show one way in which this action can be used.
 
