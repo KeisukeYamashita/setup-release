@@ -1,6 +1,6 @@
-# Download Provision Release
-[![CI](https://github.com/KeisukeYamashita/download-provision-release/workflows/build-test/badge.svg)](https://github.com/KeisukeYamashita/download-provision-release/actions?query=workflow%3Abuild-test)
-[![GitHub Marketplace](https://img.shields.io/badge/Marketplace-Downoald%20Provision%20Release-blue.svg?colorA=24292e&colorB=0366d6&style=flat&longCache=true&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAM6wAADOsB5dZE0gAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAERSURBVCiRhZG/SsMxFEZPfsVJ61jbxaF0cRQRcRJ9hlYn30IHN/+9iquDCOIsblIrOjqKgy5aKoJQj4O3EEtbPwhJbr6Te28CmdSKeqzeqr0YbfVIrTBKakvtOl5dtTkK+v4HfA9PEyBFCY9AGVgCBLaBp1jPAyfAJ/AAdIEG0dNAiyP7+K1qIfMdonZic6+WJoBJvQlvuwDqcXadUuqPA1NKAlexbRTAIMvMOCjTbMwl1LtI/6KWJ5Q6rT6Ht1MA58AX8Apcqqt5r2qhrgAXQC3CZ6i1+KMd9TRu3MvA3aH/fFPnBodb6oe6HM8+lYHrGdRXW8M9bMZtPXUji69lmf5Cmamq7quNLFZXD9Rq7v0Bpc1o/tp0fisAAAAASUVORK5CYII=)](https://github.com/marketplace/actions/download-provision-release)
+# Setup Release
+[![CI](https://github.com/KeisukeYamashita/setup-release/workflows/build-test/badge.svg)](https://github.com/KeisukeYamashita/setup-release/actions?query=workflow%3Abuild-test)
+[![GitHub Marketplace](https://img.shields.io/badge/Marketplace-Setup%20Release-blue.svg?colorA=24292e&colorB=0366d6&style=flat&longCache=true&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAM6wAADOsB5dZE0gAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAERSURBVCiRhZG/SsMxFEZPfsVJ61jbxaF0cRQRcRJ9hlYn30IHN/+9iquDCOIsblIrOjqKgy5aKoJQj4O3EEtbPwhJbr6Te28CmdSKeqzeqr0YbfVIrTBKakvtOl5dtTkK+v4HfA9PEyBFCY9AGVgCBLaBp1jPAyfAJ/AAdIEG0dNAiyP7+K1qIfMdonZic6+WJoBJvQlvuwDqcXadUuqPA1NKAlexbRTAIMvMOCjTbMwl1LtI/6KWJ5Q6rT6Ht1MA58AX8Apcqqt5r2qhrgAXQC3CZ6i1+KMd9TRu3MvA3aH/fFPnBodb6oe6HM8+lYHrGdRXW8M9bMZtPXUji69lmf5Cmamq7quNLFZXD9Rq7v0Bpc1o/tp0fisAAAAASUVORK5CYII=)](https://github.com/marketplace/actions/setup-release)
 
 A GitHub Action that downloads a release and provision for later job usage.
 You don't need to download assets and extract, add system pathes, this action will do it for you with very easy configurations.
@@ -9,7 +9,7 @@ You don't need to download assets and extract, add system pathes, this action wi
 
 ```yml
       - name: Get conftest CLI
-        uses: KeisukeYamashita/download-provision-release@v1
+        uses: KeisukeYamashita/setup-release@v1
         with:
           repository: open-policy-agent/conftest
 ```
@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: KeisukeYamashita/download-provision-release@v1
+      - uses: KeisukeYamashita/setup-release@v1
         with:
           repository: spinnaker/kleat
           tag: v0.3.0
@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: KeisukeYamashita/download-provision-release@v1
+      - uses: KeisukeYamashita/setup-release@v1
         with:
           repository: spinnaker/kleat
       # Use the "kleat" command in the later steps

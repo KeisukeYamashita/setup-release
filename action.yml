@@ -1,4 +1,4 @@
-name: 'Download Provision Release'
+name: 'Setup Release'
 description: 'GitHub Action that downloads a release and provision for later job usage'
 author: 'KeisukeYamashita'
 inputs:
