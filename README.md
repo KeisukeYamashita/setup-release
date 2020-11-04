@@ -44,8 +44,9 @@ jobs:
 
 | Name | Description | Default |
 | --- | --- | --- |
-| `arch` | The asset arch target. | `amd64` |  
+| `arch` | The asset arch target. | `amd64` |
 | `archive` | Archive type. Currently, `tar.gz`, `darwin` and `zip` is supported. | `tar.gz` |
+| `installPath` | Path to install the extracted asset | UUID |
 | `repository` | The GitHub repository where it is released | `true` |
 | `number` | The number of the issue to post. | `github.event.issue.number` |
 | `platform` | Assets target platform. `linux`, `darwin` is supported. | `linux` |

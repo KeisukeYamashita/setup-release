@@ -1,4 +1,5 @@
 import * as core from '@actions/core'
+import {uuid} from 'uuidv4'
 import {Agent, Inputs} from './agent'
 import {Downloader, Config as DownloaderConfig, archiveType} from './downloader'
 import {Provisioner, Config as ProvisionerConfig} from './provisioner'
@@ -9,6 +10,10 @@ async function run(): Promise<void> {
     const inputs: Inputs = {
       arch: core.getInput('arch'),
       archive: core.getInput('archive') as archiveType,
+      installPath:
+        core.getInput('installPath') === ''
+          ? uuid()
+          : core.getInput('installPath'),
       name: core.getInput('name'),
       owner,
       platform: core.getInput('platform'),

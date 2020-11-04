@@ -10,6 +10,7 @@ import {inspect} from 'util'
 export type archiveType = 'tar.gz' | 'zip' | 'darwin'
 
 export interface Config {
+  installPath: string
   owner: string
   repo: string
   token: string
@@ -66,7 +67,7 @@ export class Downloader {
 
     const assetPath = await tc.downloadTool(
       asset.browser_download_url,
-      '/tmp/asset',
+      `/tmp/${this.cfg.installPath}`,
       this.cfg.token
     )
 

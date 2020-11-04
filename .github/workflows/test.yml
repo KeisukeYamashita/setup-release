@@ -34,3 +34,14 @@ jobs:
           repository: spinnaker/kleat
           tag: v0.3.0
       - run: kleat version
+  test-multiple-install:
+    name: Get latest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          repository: spinnaker/kleat
+      - uses: ./
+        with:
+          repository: spinnaker/kleat
