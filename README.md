@@ -55,6 +55,10 @@ jobs:
 
 *Note: You cannot use this action if the asset name is not included in the asset name because the search is based on the three inputs(`arch`, `archive` and `platform`) in the asset.name field.*
 
+#### Install Path
+The extracted assets will be stores in `/tmp/${UUID}` by default. It is recommented to use this if you have multiple stages that uses this action.
+But, if you want to configure it, you can use `installPath`.
+
 ### Action outputs
 
 | Name | Description |
