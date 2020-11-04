@@ -44,8 +44,9 @@ jobs:
 
 | Name | Description | Default |
 | --- | --- | --- |
-| `arch` | The asset arch target. | `amd64` |  
+| `arch` | The asset arch target. | `amd64` |
 | `archive` | Archive type. Currently, `tar.gz`, `darwin` and `zip` is supported. | `tar.gz` |
+| `installPath` | Path to install the extracted asset | UUID |
 | `repository` | The GitHub repository where it is released | `true` |
 | `number` | The number of the issue to post. | `github.event.issue.number` |
 | `platform` | Assets target platform. `linux`, `darwin` is supported. | `linux` |
@@ -53,6 +54,10 @@ jobs:
 | `token` | `GITHUB_TOKEN` or a `repo` scoped [PAT](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token). | `GITHUB_TOKEN` |
 
 *Note: You cannot use this action if the asset name is not included in the asset name because the search is based on the three inputs(`arch`, `archive` and `platform`) in the asset.name field.*
+
+#### Install Path
+The extracted assets will be stores in `/tmp/${UUID}` by default. It is recommented to use this if you have multiple stages that uses this action.
+But, if you want to configure it, you can use `installPath`.
 
 ### Action outputs
 

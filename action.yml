@@ -10,6 +10,10 @@ inputs:
     required: false
     description: 'The extension. "tar.gz", "darwin", "zip" is supported'
     default: 'tar.gz'
+  installPath:
+    required: false
+    description: 'Path to install the extracted asset'
+    default: ''
   repository:
     required: false
     description: 'The GitHub repository to get the release'

@@ -29,7 +29,8 @@
     "@actions/github": "^4.0.0",
     "@actions/io": "^1.0.2",
     "@actions/tool-cache": "^1.6.0",
-    "@octokit/types": "^5.5.0"
+    "@octokit/types": "^5.5.0",
+    "uuidv4": "^6.2.5"
   },
   "devDependencies": {
     "@types/jest": "^26.0.15",
