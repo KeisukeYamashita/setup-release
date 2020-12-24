@@ -53,4 +53,4 @@ jobs:
       - uses: ./
         with:
           repository: KeisukeYamashita/setup-release-test-repo-private
-          token: ${{ secret.SETUP_RELEASE_GITHUB_TOKEN }}
+          token: ${{ secrets.SETUP_RELEASE_GITHUB_TOKEN }}
