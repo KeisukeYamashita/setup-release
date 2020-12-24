@@ -113,7 +113,7 @@ class Downloader {
             }
             core.setOutput('asset-id', asset.id);
             core.setOutput('asset-name', asset.name);
-            const assetPath = yield tc.downloadTool(asset.browser_download_url, `/tmp/${this.cfg.installPath}`, `Bearer ${this.cfg.token}`);
+            const assetPath = yield tc.downloadTool(asset.browser_download_url, `/tmp/${this.cfg.installPath}`, `token ${this.cfg.token}`);
             core.debug(`Download asset: ${asset.name}`);
             let assetExtractedFolder;
             switch (this.cfg.archive) {
@@ -181,7 +181,7 @@ const provisioner_1 = __webpack_require__(5972);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const [owner, repo] = core.getInput('repository').split('/');
+            const [owner, repo] = core.getInput('repository', { required: true }).split('/');
             const inputs = {
                 arch: core.getInput('arch'),
                 archive: core.getInput('archive'),
@@ -193,7 +193,7 @@ function run() {
                 platform: core.getInput('platform'),
                 repo,
                 tag: core.getInput('tag'),
-                token: core.getInput('token')
+                token: core.getInput('token', { required: true })
             };
             const downloader = new downloader_1.Downloader(inputs);
             const provisioner = new provisioner_1.Provisioner(inputs);

@@ -6,7 +6,9 @@ import {Provisioner, Config as ProvisionerConfig} from './provisioner'
 
 async function run(): Promise<void> {
   try {
-    const [owner, repo] = core.getInput('repository').split('/')
+    const [owner, repo] = core
+      .getInput('repository', {required: true})
+      .split('/')
     const inputs: Inputs = {
       arch: core.getInput('arch'),
       archive: core.getInput('archive') as archiveType,
@@ -19,7 +21,7 @@ async function run(): Promise<void> {
       platform: core.getInput('platform'),
       repo,
       tag: core.getInput('tag'),
-      token: core.getInput('token')
+      token: core.getInput('token', {required: true})
     }
 
     const downloader = new Downloader(inputs as DownloaderConfig)
