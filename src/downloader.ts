@@ -68,7 +68,7 @@ export class Downloader {
     const assetPath = await tc.downloadTool(
       asset.browser_download_url,
       `/tmp/${this.cfg.installPath}`,
-      this.cfg.token
+      `token ${this.cfg.token}`
     )
 
     let assetExtractedFolder: string
