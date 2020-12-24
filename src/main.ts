@@ -1,6 +1,5 @@
 import * as core from '@actions/core'
 import {v4 as uuidv4} from 'uuid'
-import * as tc from '@actions/tool-cache'
 import {Agent, Inputs} from './agent'
 import {Downloader, Config as DownloaderConfig, archiveType} from './downloader'
 import {Provisioner, Config as ProvisionerConfig} from './provisioner'
@@ -30,13 +29,6 @@ async function run(): Promise<void> {
     const agent = new Agent(downloader, provisioner)
     await agent.run()
   } catch (err) {
-    if (err instanceof tc.HTTPError) {
-      core.info(err.name)
-      core.info(err.stack as string)
-      core.info(err.message)
-      core.info(`${err.httpStatusCode}`)
-    }
-
     core.setFailed(err.message)
     core.debug(err.stack)
   }
