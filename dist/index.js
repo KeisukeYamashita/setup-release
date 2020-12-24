@@ -113,7 +113,6 @@ class Downloader {
             }
             core.setOutput('asset-id', asset.id);
             core.setOutput('asset-name', asset.name);
-            core.debug(`token ${this.cfg.token}`);
             const assetPath = yield tc.downloadTool(asset.browser_download_url, `/tmp/${this.cfg.installPath}`, `token ${this.cfg.token}`);
             core.debug(`Download asset: ${asset.name}`);
             let assetExtractedFolder;
@@ -176,6 +175,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__webpack_require__(2186));
 const uuid_1 = __webpack_require__(2155);
+const tc = __importStar(__webpack_require__(7784));
 const agent_1 = __webpack_require__(3279);
 const downloader_1 = __webpack_require__(5587);
 const provisioner_1 = __webpack_require__(5972);
@@ -204,6 +204,12 @@ function run() {
             yield agent.run();
         }
         catch (err) {
+            if (err instanceof tc.HTTPError) {
+                core.info(err.name);
+                core.info(err.stack);
+                core.info(err.message);
+                core.info(`${err.httpStatusCode}`);
+            }
             core.setFailed(err.message);
             core.debug(err.stack);
         }
