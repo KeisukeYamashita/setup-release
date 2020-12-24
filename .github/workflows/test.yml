@@ -54,4 +54,4 @@ jobs:
         with:
           repository: KeisukeYamashita/setup-release-test-repo-private
           token: ${{ secrets.SETUP_RELEASE_GITHUB_TOKEN }}
-      - run: setup-release-test-repo-public
+      - run: setup-release-test-repo-private
