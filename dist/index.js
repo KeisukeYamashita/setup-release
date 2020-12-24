@@ -113,7 +113,7 @@ class Downloader {
             }
             core.setOutput('asset-id', asset.id);
             core.setOutput('asset-name', asset.name);
-            const assetPath = yield tc.downloadTool(asset.browser_download_url, `/tmp/${this.cfg.installPath}`, this.cfg.token);
+            const assetPath = yield tc.downloadTool(asset.browser_download_url, `/tmp/${this.cfg.installPath}`, `token ${this.cfg.token}`);
             let assetExtractedFolder;
             switch (this.cfg.archive) {
                 case 'tar.gz':
@@ -184,7 +184,9 @@ function run() {
             const inputs = {
                 arch: core.getInput('arch'),
                 archive: core.getInput('archive'),
-                installPath: core.getInput('installPath') === '' ? uuidv4_1.uuid() : core.getInput('installPath'),
+                installPath: core.getInput('installPath') === ''
+                    ? uuidv4_1.uuid()
+                    : core.getInput('installPath'),
                 name: core.getInput('name'),
                 owner,
                 platform: core.getInput('platform'),
