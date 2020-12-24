@@ -71,6 +71,8 @@ export class Downloader {
       `bearer ${this.cfg.token}`
     )
 
+    core.debug(`Download asset: ${asset.name}`)
+
     let assetExtractedFolder: string
     switch (this.cfg.archive) {
       case 'tar.gz':

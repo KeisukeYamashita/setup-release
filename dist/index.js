@@ -114,6 +114,7 @@ class Downloader {
             core.setOutput('asset-id', asset.id);
             core.setOutput('asset-name', asset.name);
             const assetPath = yield tc.downloadTool(asset.browser_download_url, `/tmp/${this.cfg.installPath}`, `bearer ${this.cfg.token}`);
+            core.debug(`Download asset: ${asset.name}`);
             let assetExtractedFolder;
             switch (this.cfg.archive) {
                 case 'tar.gz':
@@ -199,8 +200,9 @@ function run() {
             const agent = new agent_1.Agent(downloader, provisioner);
             yield agent.run();
         }
-        catch (error) {
-            core.setFailed(error.message);
+        catch (err) {
+            core.setFailed(err.message);
+            core.debug(err.stack);
         }
     });
 }
