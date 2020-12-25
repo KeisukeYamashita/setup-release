@@ -66,7 +66,7 @@ export class Downloader {
     core.setOutput('asset-name', asset.name)
 
     const assetPath = await tc.downloadTool(
-      `https://api.github.com/repos/${this.cfg.owner}/${this.cfg.repo}/releases/assets/${asset.id}`,
+      asset.browser_download_url,
       `/tmp/${this.cfg.installPath}`,
       `token ${this.cfg.token}`
     )
