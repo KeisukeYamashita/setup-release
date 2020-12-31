@@ -25,7 +25,7 @@ jobs:
           repository: KeisukeYamashita/setup-release-test-repo-public
       - run: setup-release-test-repo-public
   test-tagged-linux-amd64:
-    name: Get v0.2.0 linux amd64
+    name: Get v0.1.0 linux amd64
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
