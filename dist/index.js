@@ -113,7 +113,8 @@ class Downloader {
             }
             core.setOutput('asset-id', asset.id);
             core.setOutput('asset-name', asset.name);
-            const assetPath = yield tc.downloadTool(asset.browser_download_url, `/tmp/${this.cfg.installPath}`, `token ${this.cfg.token}`);
+            asset.url;
+            const assetPath = yield tc.downloadTool(asset.url, `/tmp/${this.cfg.installPath}`, `token ${this.cfg.token}\r\nAccept: application/octet-stream`);
             core.debug(`Download asset: ${asset.name}`);
             let assetExtractedFolder;
             switch (this.cfg.archive) {
