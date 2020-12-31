@@ -5,7 +5,11 @@ import {
   ReposGetLatestReleaseResponseData,
   ReposGetReleaseAssetResponseData
 } from '@octokit/types'
-import {inspect} from 'util'
+import {inspect, promisify} from 'util'
+import * as stream from 'stream'
+import got from 'got'
+import * as fs from 'fs'
+const pipeline = promisify(stream.pipeline)
 
 export type archiveType = 'tar.gz' | 'zip' | 'darwin'
 
@@ -65,22 +69,32 @@ export class Downloader {
     core.setOutput('asset-id', asset.id)
     core.setOutput('asset-name', asset.name)
 
-    const assetPath = await tc.downloadTool(
-      asset.browser_download_url,
-      `/tmp/${this.cfg.installPath}`,
-      `token ${this.cfg.token}`
+    const dest = `/tmp/${this.cfg.installPath}`
+
+    await pipeline(
+      got.stream(asset.url, {
+        method: 'GET',
+        headers: {
+          'User-Agent': 'GitHub Actions',
+          Accept: 'application/octet-stream',
+          Authorization: `token ${this.cfg.token}`
+        }
+      }),
+      fs.createWriteStream(dest)
     )
+
+    core.debug(`Download asset: ${asset.name}`)
 
     let assetExtractedFolder: string
     switch (this.cfg.archive) {
       case 'tar.gz':
-        assetExtractedFolder = await tc.extractTar(assetPath)
+        assetExtractedFolder = await tc.extractTar(dest)
         break
       case 'darwin':
-        assetExtractedFolder = await tc.extractXar(assetPath)
+        assetExtractedFolder = await tc.extractXar(dest)
         break
       case 'zip':
-        assetExtractedFolder = await tc.extractZip(assetPath)
+        assetExtractedFolder = await tc.extractZip(dest)
         break
     }
 
