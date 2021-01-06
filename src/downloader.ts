@@ -30,7 +30,7 @@ export class Downloader {
     this.latest = cfg.tag === 'latest'
   }
 
-  isTargetAsset(asset: ReposGetReleaseAssetResponseData): boolean {
+  private isTargetAsset(asset: ReposGetReleaseAssetResponseData): boolean {
     const {name} = asset
     return (
       name.includes(this.cfg.platform) &&
