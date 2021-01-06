@@ -10,7 +10,7 @@ You don't need to download assets and extract, add system pathes, this action wi
 
 ```yml
       - name: Get conftest CLI
-        uses: KeisukeYamashita/setup-release@v1.0.1
+        uses: KeisukeYamashita/setup-release@v1.0.2
         with:
           repository: open-policy-agent/conftest
 ```
@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: KeisukeYamashita/setup-release@v1.0.1
+      - uses: KeisukeYamashita/setup-release@v1.0.2
         with:
           repository: spinnaker/kleat
           tag: v0.3.0
@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: KeisukeYamashita/setup-release@v1.0.1
+      - uses: KeisukeYamashita/setup-release@v1.0.2
         with:
           repository: spinnaker/kleat
       # Use the "kleat" command in the later steps
@@ -66,7 +66,8 @@ But, if you want to configure it, you can use `installPath`.
 | --- | --- |
 | `asset-id` | ID of the downloaded, provisioned asset |
 | `asset-name` | Name of the downloaded, provisioned asset | 
-| `restore-from-cache` | If restored from cache or not| 
+| `restore-from-cache` | If restored from cache or not |
+| `tag` | Tag that downloaded |
 
 ### Accessing issues in other repositories
 
