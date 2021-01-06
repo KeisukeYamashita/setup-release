@@ -15,6 +15,21 @@ jobs:
           npm install
       - run: |
           npm run all
+  test-caching:
+    name: Get latest linux amd64
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          repository: KeisukeYamashita/setup-release-test-repo-public
+      - uses: ./
+        id: second-setup
+        with:
+          repository: KeisukeYamashita/setup-release-test-repo-public
+      - name: Checked catched or not
+        if: steps.second-setup.outputs.restore-from-cache == 'false'
+        run: exit 1
   test-latest-linux-amd64:
     name: Get latest linux amd64
     runs-on: ubuntu-latest
