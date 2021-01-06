@@ -16,7 +16,7 @@ jobs:
       - run: |
           npm run all
   test-caching:
-    name: Get latest linux amd64
+    name: Test caching
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -31,7 +31,7 @@ jobs:
         if: steps.second-setup.outputs.restore-from-cache == 'false'
         run: exit 1
   test-no-caching:
-    name: Get latest linux amd64
+    name: Test no caching
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
