@@ -11,6 +11,7 @@ import got from 'got'
 import * as fs from 'fs'
 const pipeline = promisify(stream.pipeline)
 
+const cacheKey = 'release'
 export type archiveType = 'tar.gz' | 'zip' | 'darwin'
 
 export interface Config {
@@ -30,7 +31,7 @@ export class Downloader {
     this.latest = cfg.tag === 'latest'
   }
 
-  isTargetAsset(asset: ReposGetReleaseAssetResponseData): boolean {
+  private isTargetAsset(asset: ReposGetReleaseAssetResponseData): boolean {
     const {name} = asset
     return (
       name.includes(this.cfg.platform) &&
@@ -49,6 +50,7 @@ export class Downloader {
         repo: this.cfg.repo
       })
       release = resp.data
+      this.cfg.tag = release.tag_name
     } else {
       const resp = await client.repos.getReleaseByTag({
         owner: this.cfg.owner,
@@ -57,6 +59,16 @@ export class Downloader {
       })
       release = resp.data
     }
+
+    // check cache
+    const toolPath = tc.find(cacheKey, this.cfg.tag)
+    if (toolPath) {
+      core.info(`Found in cache @ ${toolPath} for tag ${this.cfg.tag}`)
+      core.setOutput('restore-from-cache', true)
+      return toolPath
+    }
+
+    core.setOutput('restore-from-cache', false)
 
     const asset = release.assets.find(a => this.isTargetAsset(a))
     if (!asset) {
@@ -98,7 +110,8 @@ export class Downloader {
         break
     }
 
-    return assetExtractedFolder
+    core.debug(`Cached @ ${assetExtractedFolder} for tag ${this.cfg.tag}`)
+    return await tc.cacheDir(assetExtractedFolder, cacheKey, this.cfg.tag)
   }
 }
 

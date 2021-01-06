@@ -15,6 +15,36 @@ jobs:
           npm install
       - run: |
           npm run all
+  test-caching:
+    name: Test caching
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: First Download
+        uses: ./
+        with:
+          repository: KeisukeYamashita/setup-release-test-repo-public
+      - name: Second Download
+        uses: ./
+        id: second-setup
+        with:
+          repository: KeisukeYamashita/setup-release-test-repo-public
+      - name: Checked catched or not
+        if: steps.second-setup.outputs.restore-from-cache == 'false'
+        run: exit 1
+  test-no-caching:
+    name: Test no caching
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: First Download
+        uses: ./
+        id: first-setup
+        with:
+          repository: KeisukeYamashita/setup-release-test-repo-public
+      - name: Checked catched or not
+        if: steps.first-setup.outputs.restore-from-cache == 'true'
+        run: exit 1
   test-latest-linux-amd64:
     name: Get latest linux amd64
     runs-on: ubuntu-latest

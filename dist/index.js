@@ -81,6 +81,7 @@ const stream = __importStar(__webpack_require__(2413));
 const got_1 = __importDefault(__webpack_require__(3061));
 const fs = __importStar(__webpack_require__(5747));
 const pipeline = util_1.promisify(stream.pipeline);
+const cacheKey = 'release';
 class Downloader {
     constructor(cfg) {
         this.cfg = cfg;
@@ -102,6 +103,7 @@ class Downloader {
                     repo: this.cfg.repo
                 });
                 release = resp.data;
+                this.cfg.tag = release.tag_name;
             }
             else {
                 const resp = yield client.repos.getReleaseByTag({
@@ -111,6 +113,14 @@ class Downloader {
                 });
                 release = resp.data;
             }
+            // check cache
+            const toolPath = tc.find(cacheKey, this.cfg.tag);
+            if (toolPath) {
+                core.info(`Found in cache @ ${toolPath} for tag ${this.cfg.tag}`);
+                core.setOutput('restore-from-cache', true);
+                return toolPath;
+            }
+            core.setOutput('restore-from-cache', false);
             const asset = release.assets.find(a => this.isTargetAsset(a));
             if (!asset) {
                 core.debug(`Cound not find asset ${util_1.inspect(this.cfg)}`);
@@ -122,12 +132,12 @@ class Downloader {
             core.setOutput('asset-name', asset.name);
             const dest = `/tmp/${this.cfg.installPath}`;
             yield pipeline(got_1.default.stream(asset.url, {
-                method: "GET",
+                method: 'GET',
                 headers: {
-                    "User-Agent": "GitHub Actions",
-                    Accept: "application/octet-stream",
-                    Authorization: `token ${this.cfg.token}`,
-                },
+                    'User-Agent': 'GitHub Actions',
+                    Accept: 'application/octet-stream',
+                    Authorization: `token ${this.cfg.token}`
+                }
             }), fs.createWriteStream(dest));
             core.debug(`Download asset: ${asset.name}`);
             let assetExtractedFolder;
@@ -142,7 +152,8 @@ class Downloader {
                     assetExtractedFolder = yield tc.extractZip(dest);
                     break;
             }
-            return assetExtractedFolder;
+            core.debug(`Cached @ ${assetExtractedFolder} for tag ${this.cfg.tag}`);
+            return yield tc.cacheDir(assetExtractedFolder, cacheKey, this.cfg.tag);
         });
     }
 }
