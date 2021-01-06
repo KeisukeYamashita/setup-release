@@ -66,7 +66,8 @@ But, if you want to configure it, you can use `installPath`.
 | --- | --- |
 | `asset-id` | ID of the downloaded, provisioned asset |
 | `asset-name` | Name of the downloaded, provisioned asset | 
-| `restore-from-cache` | If restored from cache or not| 
+| `restore-from-cache` | If restored from cache or not |
+| `tag` | Tag that downloaded |
 
 ### Accessing issues in other repositories
 

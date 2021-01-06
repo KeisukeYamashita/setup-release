@@ -113,6 +113,7 @@ class Downloader {
                 });
                 release = resp.data;
             }
+            core.setOutput('tag', this.cfg.tag);
             // check cache
             const toolPath = tc.find(cacheKey, this.cfg.tag);
             if (toolPath) {
