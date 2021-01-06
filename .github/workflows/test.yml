@@ -20,10 +20,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ./
+      - name: First Download
+        uses: ./
         with:
           repository: KeisukeYamashita/setup-release-test-repo-public
-      - uses: ./
+      - name: Second Download
+        uses: ./
         id: second-setup
         with:
           repository: KeisukeYamashita/setup-release-test-repo-public
@@ -35,10 +37,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ./
-        with:
-          repository: KeisukeYamashita/setup-release-test-repo-public
-      - uses: ./
+      - name: First Download
+        uses: ./
         id: first-setup
         with:
           repository: KeisukeYamashita/setup-release-test-repo-public
