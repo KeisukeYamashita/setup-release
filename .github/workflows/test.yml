@@ -94,7 +94,7 @@ jobs:
       - uses: ./
         with: 
           repository: spinnaker/kleat
-      - run: kleat --version
+      - run: kleat version
   test-public-repo-2:
     name: Get golang-migration/migrate
     runs-on: ubuntu-latest
