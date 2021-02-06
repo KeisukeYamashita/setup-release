@@ -11,10 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - run: |
           npm install
       - run: |
           npm run all
+
+  # Check the caching feature.
   test-caching:
     name: Test caching
     runs-on: ubuntu-latest
@@ -32,6 +35,8 @@ jobs:
       - name: Checked catched or not
         if: steps.second-setup.outputs.restore-from-cache == 'false'
         run: exit 1
+
+  # Check the caching feature.
   test-no-caching:
     name: Test no caching
     runs-on: ubuntu-latest
@@ -45,6 +50,8 @@ jobs:
       - name: Checked catched or not
         if: steps.first-setup.outputs.restore-from-cache == 'true'
         run: exit 1
+
+  # Check if it can install the latest release.
   test-latest-linux-amd64:
     name: Get latest linux amd64
     runs-on: ubuntu-latest
@@ -54,6 +61,8 @@ jobs:
         with:
           repository: KeisukeYamashita/setup-release-test-repo-public
       - run: setup-release-test-repo-public
+
+  # Check if it can install specific release.
   test-tagged-linux-amd64:
     name: Get v0.1.0 linux amd64
     runs-on: ubuntu-latest
@@ -64,6 +73,8 @@ jobs:
           repository: KeisukeYamashita/setup-release-test-repo-public
           tag: v0.1.0
       - run: setup-release-test-repo-public
+
+  # Check if there are no problem installing the same release twice.
   test-multiple-install:
     name: Get latest
     runs-on: ubuntu-latest
@@ -75,6 +86,8 @@ jobs:
       - uses: ./
         with:
           repository: KeisukeYamashita/setup-release-test-repo-public
+
+  # Check if it can install private repos by using the GitHub Token
   test-private:
     name: Get Private repository release
     runs-on: ubuntu-latest
@@ -85,3 +98,14 @@ jobs:
           repository: KeisukeYamashita/setup-release-test-repo-private
           token: ${{ secrets.SETUP_RELEASE_GITHUB_TOKEN }}
       - run: setup-release-test-repo-private
+
+  # Check if it can install public repos in the wild (Part 1).
+  test-public-repo:
+    name: Get spinaker/kleat
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        with: 
+          repository: spinnaker/kleat
+      - run: kleat version
