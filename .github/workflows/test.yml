@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - run: |
           npm install
       - run: |
@@ -19,6 +20,7 @@ jobs:
     name: Test caching
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: First Download
         uses: ./
         with:
@@ -35,6 +37,7 @@ jobs:
     name: Test no caching
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: First Download
         uses: ./
         id: first-setup
@@ -47,6 +50,7 @@ jobs:
     name: Get latest linux amd64
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: ./
         with:
           repository: KeisukeYamashita/setup-release-test-repo-public
@@ -55,6 +59,7 @@ jobs:
     name: Get v0.1.0 linux amd64
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: ./
         with:
           repository: KeisukeYamashita/setup-release-test-repo-public
@@ -64,6 +69,7 @@ jobs:
     name: Get latest
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: ./
         with:
           repository: KeisukeYamashita/setup-release-test-repo-public
@@ -74,6 +80,7 @@ jobs:
     name: Get Private repository release
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: ./
         with:
           repository: KeisukeYamashita/setup-release-test-repo-private
@@ -83,6 +90,7 @@ jobs:
     name: Get spinaker/kleat
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: ./
         with: 
           repository: spinnaker/kleat
@@ -91,6 +99,7 @@ jobs:
     name: Get golang-migration/migrate
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: ./
         with: 
           repository: golang-migrate/migrate
