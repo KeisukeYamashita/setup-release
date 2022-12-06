@@ -10,8 +10,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
       - run: |
           npm install
       - run: |
@@ -22,7 +22,8 @@ jobs:
     name: Test caching
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: First Download
         uses: ./
         with:
@@ -41,7 +42,8 @@ jobs:
     name: Test no caching
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: First Download
         uses: ./
         id: first-setup
@@ -56,7 +58,8 @@ jobs:
     name: Get latest linux amd64
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
       - uses: ./
         with:
           repository: KeisukeYamashita/setup-release-test-repo-public
@@ -67,7 +70,8 @@ jobs:
     name: Get v0.1.0 linux amd64
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
       - uses: ./
         with:
           repository: KeisukeYamashita/setup-release-test-repo-public
@@ -79,7 +83,8 @@ jobs:
     name: Get latest
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
       - uses: ./
         with:
           repository: KeisukeYamashita/setup-release-test-repo-public
@@ -92,7 +97,8 @@ jobs:
     name: Get Private repository release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
       - uses: ./
         with:
           repository: KeisukeYamashita/setup-release-test-repo-private
@@ -100,12 +106,25 @@ jobs:
       - run: setup-release-test-repo-private
 
   # Check if it can install public repos in the wild (Part 1).
-  test-public-repo:
+  test-public-repo-1:
     name: Get spinaker/kleat
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
       - uses: ./
         with: 
           repository: spinnaker/kleat
       - run: kleat version
+
+  # Check if it can install public repos in the wild (Part 2).
+  test-public-repo-2:
+    name: Get actionlint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: ./
+        with: 
+          repository: rhysd/actionlint
+      - run: actionlint -version

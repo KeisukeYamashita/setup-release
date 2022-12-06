@@ -31,7 +31,7 @@ inputs:
     description: 'Credential to access to the repo to post the comment'
     default: ${{ github.token }}
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'dist/index.js'
 branding:
   icon: 'archive'
