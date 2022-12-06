@@ -1,10 +1,10 @@
-# Setup Release
+# action-install-release
 [![CI][CI]][CI-status]
 [![GitHub Marketplace][MarketPlace]][MarketPlace-status]
 [![Mergify Status][mergify-status]][mergify]
 
 A GitHub Action that downloads a release and provision for later job usage.
-You don't need to download assets and extract, add system pathes, this action will do it for you with very easy configurations.
+You don't need to download assets and extract, add system pathes, this action will do it for you with very easy configuration.
 
 ## Usage
 

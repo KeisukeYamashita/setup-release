@@ -92,19 +92,6 @@ jobs:
         with:
           repository: KeisukeYamashita/setup-release-test-repo-public
 
-  # Check if it can install private repos by using the GitHub Token
-  test-private:
-    name: Get Private repository release
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - uses: ./
-        with:
-          repository: KeisukeYamashita/setup-release-test-repo-private
-          token: ${{ secrets.SETUP_RELEASE_GITHUB_TOKEN }}
-      - run: setup-release-test-repo-private
-
   # Check if it can install public repos in the wild (Part 1).
   test-public-repo-1:
     name: Get spinaker/kleat
