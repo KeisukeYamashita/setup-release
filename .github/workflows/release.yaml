@@ -1,0 +1,25 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # enable manual release
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: open-turo/actions-gha/lint@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  release:
+    name: Release
+    needs: [lint]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: open-turo/actions-gha/release@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}

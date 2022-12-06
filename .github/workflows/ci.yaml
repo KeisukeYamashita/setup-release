@@ -1,4 +1,5 @@
-name: 'build-test'
+name: 'CI'
+
 on:
   pull_request:
   push:
@@ -7,6 +8,14 @@ on:
       - 'releases/*'
 
 jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: open-turo/actions-gha/lint@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -100,7 +109,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - uses: ./
-        with: 
+        with:
           repository: spinnaker/kleat
       - run: kleat version
 
@@ -112,6 +121,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - uses: ./
-        with: 
+        with:
           repository: rhysd/actionlint
       - run: actionlint -version
