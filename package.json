@@ -6,7 +6,7 @@
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
-    "prepare": "npm run build && ncc build --source-map --license licenses.txt",
+    "prepare": "npm run build && ncc build --source-map --license licenses.txt && pre-commit run -a",
     "test": "jest",
     "all": "npm run build && npm run prepare && npm test"
   },
