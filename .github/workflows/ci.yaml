@@ -16,6 +16,14 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: open-turo/actions-gha/test@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
   build:
     name: Build
     runs-on: ubuntu-latest
@@ -29,7 +37,7 @@ jobs:
 
   # Check the caching feature.
   test-caching:
-    name: Test caching
+    name: Test / caching
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -49,7 +57,7 @@ jobs:
 
   # Check the caching feature.
   test-no-caching:
-    name: Test no caching
+    name: Test / No caching
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -65,7 +73,7 @@ jobs:
 
   # Check if it can install the latest release.
   test-latest-linux-amd64:
-    name: Get latest linux amd64
+    name: Test / Get latest linux amd64
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -77,7 +85,7 @@ jobs:
 
   # Check if it can install specific release.
   test-tagged-linux-amd64:
-    name: Get v0.1.0 linux amd64
+    name: Test / Get v0.1.0 linux amd64
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -90,7 +98,7 @@ jobs:
 
   # Check if there are no problem installing the same release twice.
   test-multiple-install:
-    name: Get latest
+    name: Test / Get latest
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -104,7 +112,7 @@ jobs:
 
   # Check if it can install public repos in the wild (Part 1).
   test-public-repo-1:
-    name: Get spinaker/kleat
+    name: Test / Get spinaker/kleat
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -116,7 +124,7 @@ jobs:
 
   # Check if it can install public repos in the wild (Part 2).
   test-public-repo-2:
-    name: Get actionlint
+    name: Test / Get actionlint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
