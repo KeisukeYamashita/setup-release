@@ -28,7 +28,7 @@ async function run(): Promise<void> {
     const provisioner = new Provisioner(inputs as ProvisionerConfig)
     const agent = new Agent(downloader, provisioner)
     await agent.run()
-  } catch (err) {
+  } catch (err: any) {
     core.setFailed(err.message)
     core.debug(err.stack)
   }
