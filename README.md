@@ -1,11 +1,16 @@
 # action-install-release
 
-[![CI][ci]][ci-status]
-[![GitHub Marketplace][marketplace]][marketplace-status]
-[![Mergify Status][mergify-status]][mergify]
-
 A GitHub Action that downloads a release and provision for later job usage.
 You don't need to download assets and extract, add system pathes, this action will do it for you with very easy configuration.
+
+[![Release](https://img.shields.io/github/v/release/open-turo/action-install-release)](https://github.com/open-turo/action-install-release/releases/)
+[![Tests pass/fail](https://img.shields.io/github/workflow/status/open-turo/action-install-release/CI)](https://github.com/open-turo/action-install-release/actions/)
+[![License](https://img.shields.io/github/license/open-turo/action-install-release)](./LICENSE)
+[![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](https://github.com/dwyl/esta/issues)
+![CI](https://github.com/open-turo/action-install-release/actions/workflows/release.yaml/badge.svg)
+[![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
+[![Conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.2-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
+[![Join us!](https://img.shields.io/badge/Turo-Join%20us%21-593CFB.svg)](https://turo.com/jobs)
 
 ## Usage
 
@@ -79,12 +84,3 @@ The user associated with the PAT must have write access to the repository.
 ## License
 
 [MIT](LICENSE)
-
-<!-- Badge links -->
-
-[ci]: https://github.com/KeisukeYamashita/setup-release/workflows/build-test/badge.svg
-[ci-status]: https://github.com/KeisukeYamashita/setup-release/actions?query=workflow%3Abuild-test
-[marketplace]: https://img.shields.io/badge/Marketplace-Setup%20Release-blue.svg?colorA=24292e&colorB=0366d6&style=flat&longCache=true&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAM6wAADOsB5dZE0gAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAERSURBVCiRhZG/SsMxFEZPfsVJ61jbxaF0cRQRcRJ9hlYn30IHN/+9iquDCOIsblIrOjqKgy5aKoJQj4O3EEtbPwhJbr6Te28CmdSKeqzeqr0YbfVIrTBKakvtOl5dtTkK+v4HfA9PEyBFCY9AGVgCBLaBp1jPAyfAJ/AAdIEG0dNAiyP7+K1qIfMdonZic6+WJoBJvQlvuwDqcXadUuqPA1NKAlexbRTAIMvMOCjTbMwl1LtI/6KWJ5Q6rT6Ht1MA58AX8Apcqqt5r2qhrgAXQC3CZ6i1+KMd9TRu3MvA3aH/fFPnBodb6oe6HM8+lYHrGdRXW8M9bMZtPXUji69lmf5Cmamq7quNLFZXD9Rq7v0Bpc1o/tp0fisAAAAASUVORK5CYII=
-[marketplace-status]: https://github.com/marketplace/actions/setup-release
-[mergify]: https://mergify.io
-[mergify-status]: https://img.shields.io/endpoint.svg?url=https://gh.mergify.io/badges/KeisukeYamashita/setup-release&style=flat
